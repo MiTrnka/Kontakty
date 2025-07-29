@@ -11,14 +11,6 @@ namespace Kontakty;
 
 public class ContactsListViewModel : ViewModelBase
 {
-    /*
-            // Navigace na existující kontakt
-            await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}?id={contact.Id}");
-
-            // Navigace pro vytvoření nového
-            await Shell.Current.GoToAsync(nameof(ContactDetailPage));
-
-    */
     private readonly DatabaseContext _context;
 
     // ObservableCollection je speciální typ kolekce, který automaticky
@@ -30,6 +22,8 @@ public class ContactsListViewModel : ViewModelBase
 
     public ICommand GoToDetailsCommand { get; }
 
+    public ICommand CreateNewContactCommand { get; }
+
     // Konstruktor, kde si přes Dependency Injection vyžádáme DatabaseContext.
     public ContactsListViewModel(DatabaseContext context)
     {
@@ -40,6 +34,9 @@ public class ContactsListViewModel : ViewModelBase
         // Inicializace nového příkazu.
         // Očekává jako parametr objekt, na který se kliklo.
         GoToDetailsCommand = new Command(async (contact) => await GoToDetailsAsync(contact));
+
+        // Inicializace příkazu pro vytvoření nového kontaktu
+        CreateNewContactCommand = new Command(async (param) => await CreateNewContactAsync());
 
     }
 
@@ -72,5 +69,12 @@ public class ContactsListViewModel : ViewModelBase
             // Např. "ContactDetailPage?id=1"
             await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}?id={contactViewModel.Id}");
         }
+    }
+
+    private async Task CreateNewContactAsync()
+    {
+        // Provedeme navigaci na stránku "ContactDetailPage", ale tentokrát
+        // bez jakéhokoliv ID. To bude signál pro detail, že vytváříme nový záznam.
+        await Shell.Current.GoToAsync(nameof(ContactDetailPage));
     }
 }
