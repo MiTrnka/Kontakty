@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Kontakty"
+             x:DataType="local:ContactDetailViewModel"
              x:Class="Kontakty.ContactDetailPage"
-             Title="ContactDetailPage">
-    <VerticalStackLayout>
-        <Label
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Detail Kontaktu">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="20">
+
+            <Label Text="Jméno" />
+            <Entry Text="{Binding FirstName}" Placeholder="Zadejte jméno" />
+
+            <Label Text="Příjmení" />
+            <Entry Text="{Binding LastName}" Placeholder="Zadejte příjmení" />
+
+            <Button Text="Uložit"
+                    Command="{Binding SaveCommand}"
+                    HorizontalOptions="Fill"
+                    Margin="0,20,0,0" />
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

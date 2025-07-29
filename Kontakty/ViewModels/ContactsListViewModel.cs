@@ -28,12 +28,19 @@ public class ContactsListViewModel : ViewModelBase
     // Příkaz pro načtení kontaktů. Bude se volat, když se stránka zobrazí.
     public ICommand LoadContactsCommand { get; }
 
+    public ICommand GoToDetailsCommand { get; }
+
     // Konstruktor, kde si přes Dependency Injection vyžádáme DatabaseContext.
     public ContactsListViewModel(DatabaseContext context)
     {
         _context = context;
         // Inicializace příkazu a přiřazení metody, která se má vykonat.
         LoadContactsCommand = new Command(async (param) => await LoadContactsAsync());
+
+        // Inicializace nového příkazu.
+        // Očekává jako parametr objekt, na který se kliklo.
+        GoToDetailsCommand = new Command(async (contact) => await GoToDetailsAsync(contact));
+
     }
 
     private async Task LoadContactsAsync()
@@ -51,6 +58,19 @@ public class ContactsListViewModel : ViewModelBase
         foreach (var contact in contactsFromDb)
         {
             Contacts.Add(new ContactViewModel(contact));
+        }
+    }
+
+    // Metoda pro provedení navigace.
+    private async Task GoToDetailsAsync(object contact)
+    {
+        // Zkontrolujeme, zda je předaný parametr správného typu.
+        if (contact is ContactViewModel contactViewModel)
+        {
+            // Provedeme navigaci na stránku "ContactDetailPage" a v adrese
+            // předáme ID vybraného kontaktu jako tzv. "query parameter".
+            // Např. "ContactDetailPage?id=1"
+            await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}?id={contactViewModel.Id}");
         }
     }
 }
