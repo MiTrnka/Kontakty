@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Kontakty"
+             x:DataType="local:ContactsListViewModel"
              x:Class="Kontakty.ContactsListPage"
-             Title="ContactsListPage">
-    <VerticalStackLayout>
-        <Label
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Seznam Kontaktů">
+    <Grid RowDefinitions="*, Auto">
+        <CollectionView ItemsSource="{Binding Contacts}"
+                        Grid.Row="0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:ContactViewModel">
+                    <Border Stroke="LightGray"
+                            StrokeThickness="1"
+                            Padding="10" 
+                            Margin="10,5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout>
+                            <Label Text="{Binding FullName}" FontSize="18" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

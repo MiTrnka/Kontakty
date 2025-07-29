@@ -11,8 +11,21 @@ namespace Kontakty;
 public abstract class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
-    protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    // Pomocná metoda, která zkontroluje, zda se hodnota změnila.
+    // Pokud ano, nastaví novou hodnotu a zavolá OnPropertyChanged.
+    // Tím se vyhneme psaní if(...) v každém setteru.
+    protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "")
+    {
+        if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            return false;
+
+        backingStore = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
 }
