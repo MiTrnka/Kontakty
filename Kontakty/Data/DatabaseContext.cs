@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,12 @@ public class DatabaseContext : DbContext
         // Pokud ne, vytvoří je podle modelu.
         Database.EnsureCreated();
     }
-
+    ava
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // Tento způsob je v pořádku pro začátek.
-        // Do budoucna je lepší cestu k souboru databáze skládat dynamicky,
-        // aby fungovala na všech platformách (Android, iOS...).
-        optionsBuilder.UseSqlite("Data Source=contacts.db");
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "contacts.db");
+
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
