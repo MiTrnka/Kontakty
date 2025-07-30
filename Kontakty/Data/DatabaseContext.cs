@@ -19,7 +19,7 @@ public class DatabaseContext : DbContext
         // Pokud ne, vytvoří je podle modelu.
         Database.EnsureCreated();
     }
-    ava
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "contacts.db");
