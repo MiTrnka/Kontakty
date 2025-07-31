@@ -17,6 +17,13 @@ public class ContactViewModel : ViewModelBase
     // pro každou vlastnost, kterou chceme v UI editovat.
     private string _firstName;
     private string _lastName;
+    private DateTime _dateOfBirth;
+
+    public DateTime DateOfBirth
+    {
+        get => _dateOfBirth;
+        set => SetProperty(ref _dateOfBirth, value);
+    }
 
     // Veřejné vlastnosti, na které se bude bindovat UI.
     // Nyní pracují s privátními poli této třídy.
@@ -25,31 +32,17 @@ public class ContactViewModel : ViewModelBase
     public string FirstName
     {
         get => _firstName;
-        set
-        {
-            // Metoda SetProperty nyní správně pracuje s naším privátním polem _firstName.
-            if (SetProperty(ref _firstName, value))
-            {
-                // Notifikace pro FullName zůstává, to je správně.
-                OnPropertyChanged(nameof(FullName));
-            }
-        }
+        set => SetProperty(ref _firstName, value);
     }
 
     public string LastName
     {
         get => _lastName;
-        set
-        {
-            if (SetProperty(ref _lastName, value))
-            {
-                OnPropertyChanged(nameof(FullName));
-            }
-        }
+        set =>  SetProperty(ref _lastName, value);
     }
 
     // Tato vlastnost je v pořádku, protože jen čte z ostatních vlastností.
-    public string FullName => $"{FirstName} {LastName}";
+    public string FullName => $"{FirstName} {LastName} {DateOfBirth}";
 
 
     public ContactViewModel(Contact contact)
@@ -61,6 +54,7 @@ public class ContactViewModel : ViewModelBase
         // z datového modelu do našich nových privátních polí.
         _firstName = contact.FirstName;
         _lastName = contact.LastName;
+        _dateOfBirth = contact.DateOfBirth;
     }
 
     // --- PŘIDANÁ METODA ---
@@ -70,6 +64,7 @@ public class ContactViewModel : ViewModelBase
     {
         _contactModel.FirstName = this.FirstName;
         _contactModel.LastName = this.LastName;
+        _contactModel.DateOfBirth = this.DateOfBirth;
         // ... zde by se doplňovaly další vlastnosti (Email, Telefon atd.)
     }
 }

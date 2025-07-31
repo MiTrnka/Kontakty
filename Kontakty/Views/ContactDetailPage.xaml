@@ -15,6 +15,9 @@
             <Label Text="Příjmení" />
             <Entry Text="{Binding LastName}" Placeholder="Zadejte příjmení" />
 
+            <Label Text="Datum narození" />
+            <DatePicker Date="{Binding BirthDate, Mode=TwoWay}" Format="D" />
+
             <Button Text="Uložit"
                     Command="{Binding SaveCommand}"
                     HorizontalOptions="Fill"

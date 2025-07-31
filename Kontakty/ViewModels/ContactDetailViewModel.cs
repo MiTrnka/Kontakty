@@ -24,6 +24,13 @@ public class ContactDetailViewModel : ViewModelBase
         set => SetProperty(ref _lastName, value);
     }
 
+    private DateTime _dateOfBirth;
+    public DateTime DateOfBirth
+    {
+        get => _dateOfBirth;
+        set => SetProperty(ref _dateOfBirth, value);
+    }
+
     public ICommand SaveCommand { get; }
     public ICommand DeleteCommand { get; }
 
@@ -65,6 +72,7 @@ public class ContactDetailViewModel : ViewModelBase
             // připravíme prázdný formulář.
             FirstName = string.Empty;
             LastName = string.Empty;
+            DateOfBirth = DateTime.Now; // Nastavíme aktuální datum narození
         }
     }
 
@@ -80,6 +88,7 @@ public class ContactDetailViewModel : ViewModelBase
             // Zkopírujeme hodnoty do vlastností, které jsou nabindované na UI
             FirstName = contact.FirstName;
             LastName = contact.LastName;
+            DateOfBirth = contact.DateOfBirth;
         }
     }
 
@@ -95,6 +104,7 @@ public class ContactDetailViewModel : ViewModelBase
         // 2. Zkopírujeme hodnoty z formuláře do našeho modelu _contact
         _contact.FirstName = FirstName;
         _contact.LastName = LastName;
+        _contact.DateOfBirth = DateOfBirth;
         // Zde budeme doplňovat další vlastnosti...
 
         // 3. Klíčová část: Rozhodneme, zda přidáváme nový, nebo upravujeme existující
