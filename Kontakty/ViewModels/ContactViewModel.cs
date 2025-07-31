@@ -42,7 +42,7 @@ public class ContactViewModel : ViewModelBase
     }
 
     // Tato vlastnost je v pořádku, protože jen čte z ostatních vlastností.
-    public string FullName => $"{FirstName} {LastName} {DateOfBirth}";
+    public string FullName => $"{FirstName} {LastName} {DateOfBirth:d}";
 
 
     public ContactViewModel(Contact contact)
