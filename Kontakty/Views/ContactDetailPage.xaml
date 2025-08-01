@@ -18,11 +18,11 @@
             <Label Text="Datum narození" />
             <DatePicker Date="{Binding DateOfBirth, Mode=TwoWay}" Format="D" />
 
-            <HorizontalStackLayout>
-                <Label Text="Žena " />
-                <Switch IsToggled="{Binding IsMale}" />
-                <Label Text="Muž" />
-            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="*,*,*" HorizontalOptions="FillAndExpand">
+                <Label Text="Žena" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Switch IsToggled="{Binding IsMale}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Text="Muž" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
 
             <Button Text="Uložit"
                     Command="{Binding SaveCommand}"

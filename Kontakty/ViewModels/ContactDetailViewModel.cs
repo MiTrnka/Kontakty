@@ -16,8 +16,11 @@ public class ContactDetailViewModel : ViewModelBase
         get => _firstName;
         set
         {
-            _firstName = value;
-            OnPropertyChanged();
+            if (_firstName != value)
+            {
+                _firstName = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -27,8 +30,11 @@ public class ContactDetailViewModel : ViewModelBase
         get => _lastName;
         set
         {
-            _lastName = value;
-            OnPropertyChanged();
+            if (_lastName != value)
+            {
+                _lastName = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -38,8 +44,11 @@ public class ContactDetailViewModel : ViewModelBase
         get => _dateOfBirth;
         set
         {
-            _dateOfBirth = value;
-            OnPropertyChanged();
+            if (_dateOfBirth != value)
+            {
+                _dateOfBirth = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -49,8 +58,12 @@ public class ContactDetailViewModel : ViewModelBase
         get => _gender;
         set
         {
-            _gender = value;
-            OnPropertyChanged();
+            if (_gender != value)
+            {
+                _gender = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsMale));
+            }
         }
     }
 
@@ -59,8 +72,11 @@ public class ContactDetailViewModel : ViewModelBase
         get => Gender == Gender.Male;
         set
         {
-            _gender = value ? Gender.Male: Gender.Female;
-            OnPropertyChanged();
+            if (Gender != (value ? Gender.Male : Gender.Female))
+            {
+                Gender = value ? Gender.Male : Gender.Female;
+                // OnPropertyChanged se zavolá v setteru pro Gender
+            }
         }
     }
 
