@@ -24,4 +24,16 @@ public partial class ContactsListPage : ContentPage
         // Zavoláme pøíkaz pro naètení kontaktù z našeho ViewModelu.
         _viewModel.LoadContactsCommand?.Execute(null);
     }
+
+    private void RefreshView_Refreshing(object sender, EventArgs e)
+    {
+        // Když uživatel stáhne stránku dolù pro obnovení, spustíme pøíkaz pro naètení kontaktù.
+        _viewModel.LoadContactsCommand?.Execute(null);
+
+        // Po dokonèení obnovení zastavíme animaci naèítání.
+        if (sender is RefreshView refreshView)  //získáme RefreshView z odesílatele události, nebo bychom si to RefreshView mohli pojmenovat v XAML a použít pøímo jeho název
+        {
+            refreshView.IsRefreshing = false;
+        }
+    }
 }

@@ -18,6 +18,12 @@
             <Label Text="Datum narození" />
             <DatePicker Date="{Binding DateOfBirth, Mode=TwoWay}" Format="D" />
 
+            <HorizontalStackLayout>
+                <Label Text="Žena " />
+                <Switch IsToggled="{Binding IsMale}" />
+                <Label Text="Muž" />
+            </HorizontalStackLayout>
+
             <Button Text="Uložit"
                     Command="{Binding SaveCommand}"
                     HorizontalOptions="Fill"

@@ -5,31 +5,33 @@
              x:DataType="local:ContactsListViewModel"
              x:Class="Kontakty.ContactsListPage"
              Title="Seznam Kontaktů">
-    <Grid RowDefinitions="*, Auto">
-        <CollectionView ItemsSource="{Binding Contacts}" Grid.Row="0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="local:ContactViewModel">
-                    <Border Stroke="LightGray" StrokeThickness="1" Padding="10" Margin="10,5">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
+    <RefreshView Refreshing="RefreshView_Refreshing">
+        <Grid RowDefinitions="*, Auto">
+            <CollectionView ItemsSource="{Binding Contacts}" Grid.Row="0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:ContactViewModel">
+                        <Border Stroke="LightGray" StrokeThickness="1" Padding="10" Margin="10,5">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
 
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactsListViewModel}}, Path=GoToDetailsCommand}"
-                                CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactsListViewModel}}, Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
 
-                        <VerticalStackLayout>
-                            <Label Text="{Binding FullName}" FontSize="18" FontAttributes="Bold" />
-                        </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Grid.Row="1"
-                Text="Přidat nový kontakt"
-                Command="{Binding CreateNewContactCommand}"
-                Margin="10" />
-    </Grid>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FullContactInformation}" FontSize="18" FontAttributes="Bold" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Grid.Row="1"
+                    Text="Přidat nový kontakt"
+                    Command="{Binding CreateNewContactCommand}"
+                    Margin="10" />
+        </Grid>
+    </RefreshView>
 </ContentPage>

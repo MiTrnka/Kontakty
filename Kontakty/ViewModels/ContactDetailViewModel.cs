@@ -14,22 +14,56 @@ public class ContactDetailViewModel : ViewModelBase
     public string FirstName
     {
         get => _firstName;
-        set => SetProperty(ref _firstName, value);
+        set
+        {
+            _firstName = value;
+            OnPropertyChanged();
+        }
     }
 
     private string _lastName;
     public string LastName
     {
         get => _lastName;
-        set => SetProperty(ref _lastName, value);
+        set
+        {
+            _lastName = value;
+            OnPropertyChanged();
+        }
     }
 
     private DateTime _dateOfBirth;
     public DateTime DateOfBirth
     {
         get => _dateOfBirth;
-        set => SetProperty(ref _dateOfBirth, value);
+        set
+        {
+            _dateOfBirth = value;
+            OnPropertyChanged();
+        }
     }
+
+    private Gender _gender;
+    public Gender Gender
+    {
+        get => _gender;
+        set
+        {
+            _gender = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsMale
+    {
+        get => Gender == Gender.Male;
+        set
+        {
+            _gender = value ? Gender.Male: Gender.Female;
+            OnPropertyChanged();
+        }
+    }
+
 
     public ICommand SaveCommand { get; }
     public ICommand DeleteCommand { get; }
@@ -72,7 +106,8 @@ public class ContactDetailViewModel : ViewModelBase
             // připravíme prázdný formulář.
             FirstName = string.Empty;
             LastName = string.Empty;
-            DateOfBirth = DateTime.Now; // Nastavíme aktuální datum narození
+            DateOfBirth = DateTime.Now;
+            Gender = Gender.Male;
         }
     }
 
@@ -89,6 +124,7 @@ public class ContactDetailViewModel : ViewModelBase
             FirstName = contact.FirstName;
             LastName = contact.LastName;
             DateOfBirth = contact.DateOfBirth;
+            Gender = contact.Gender;
         }
     }
 
@@ -105,7 +141,7 @@ public class ContactDetailViewModel : ViewModelBase
         _contact.FirstName = FirstName;
         _contact.LastName = LastName;
         _contact.DateOfBirth = DateOfBirth;
-        // Zde budeme doplňovat další vlastnosti...
+        _contact.Gender = Gender;
 
         // 3. Klíčová část: Rozhodneme, zda přidáváme nový, nebo upravujeme existující
         if (_contact.Id == 0)

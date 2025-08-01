@@ -12,37 +12,58 @@ public class ContactViewModel : ViewModelBase
     // budeme ho potřebovat později pro ukládání změn.
     private readonly Contact _contactModel;
 
-    // --- ZMĚNA ZDE ---
-    // Vytvoříme privátní pole (backing fields) přímo v tomto ViewModelu
-    // pro každou vlastnost, kterou chceme v UI editovat.
-    private string _firstName;
-    private string _lastName;
-    private DateTime _dateOfBirth;
-
-    public DateTime DateOfBirth
-    {
-        get => _dateOfBirth;
-        set => SetProperty(ref _dateOfBirth, value);
-    }
-
     // Veřejné vlastnosti, na které se bude bindovat UI.
     // Nyní pracují s privátními poli této třídy.
     public int Id => _contactModel.Id;
 
+    private string _firstName;
+    private string _lastName;
+    private DateTime _dateOfBirth;
+    private Gender _gender;
+
+    public Gender Gender
+    {
+        get => _gender;
+        set
+        {
+            _gender = value;
+            OnPropertyChanged();
+        }
+
+    }
+
+    public DateTime DateOfBirth
+    {
+        get => _dateOfBirth;
+        set
+        {
+            _dateOfBirth = value;
+            OnPropertyChanged();
+        }
+    }
+
     public string FirstName
     {
         get => _firstName;
-        set => SetProperty(ref _firstName, value);
+        set
+        {
+            _firstName = value;
+            OnPropertyChanged();
+        }
     }
 
     public string LastName
     {
         get => _lastName;
-        set =>  SetProperty(ref _lastName, value);
+        set
+        {
+            _lastName = value;
+            OnPropertyChanged();
+        }
     }
 
     // Tato vlastnost je v pořádku, protože jen čte z ostatních vlastností.
-    public string FullName => $"{FirstName} {LastName} {DateOfBirth:d}";
+    public string FullContactInformation => $"{FirstName} {LastName} {DateOfBirth:d}";
 
 
     public ContactViewModel(Contact contact)
